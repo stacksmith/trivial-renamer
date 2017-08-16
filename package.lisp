@@ -1,12 +1,15 @@
 ;;;; package.lisp
 
 (defpackage #:trivial-renamer
-  (:nicknames :renamer)
+  (:nicknames :rename)
   (:use #:alexandria #:cl)
   (:export
-   :rules-clear :rules-add :rule-add
-   :renamer :rename
-   :old->new :new->old)
+   :rules :rule
+   :renamer :*default-renamer*
+   :please
+   :reset
+   :old->new :new->old :default :normal :one-to-one :cache 
+   )
   )
 
 
