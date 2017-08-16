@@ -2,7 +2,7 @@
 
 TRIVIAL-RENAMER (RENAME) is a configurable Lisp tool for renaming objects using regular expressions, and maintaining mappings between old and new names.  It may be useful as a component in projects such as file managers, MP3 renamers, and FFI generators.
 
-TRIVIAL-RENAMER operates on 'categorized' names.  Some examples of categories (which may be arbitrary lisp objects) are: file types/extionsions, music album or songs, or FFI types. 
+TRIVIAL-RENAMER operates on 'categorized' names.  Some examples of categories (which may be arbitrary lisp objects) are: file types/extensions, music album or songs, or FFI types. 
 
 Prior to renaming, TRIVIAL-RENAMER requires that you provide it with rules for categories.  Each category can have one or more rules; each rule is a pair containing a regex and the substitution string.  These are usually bulk-loaded as a list or rules, although you can add them dynamically.  
 
