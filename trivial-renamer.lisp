@@ -29,8 +29,8 @@
        (rule-add ruler  category value)))
 
 (defclass renamer (ruler)
-  ((categorize :accessor categorize :initarg :categorize :initform #'identity)
-   (get-name   :accessor get-name :initarg :get-name     :initform #'default-get-name)
+  (;;(categorize :accessor categorize :initarg :categorize :initform #'identity)
+   ;;(get-name   :accessor get-name :initarg :get-name     :initform #'default-get-name)
    (default    :accessor default  :initarg :default      :initform #'default-rename-function)
    (normal     :accessor normal   :initarg :normal       :initform #'default-rename-function)
    ;; database of name mappings
@@ -56,9 +56,7 @@
     (when one-to-one
       (setf new->old (make-hash-table :test 'equal)))
     (when cache
-      (setf old->new (make-hash-table :test 'equal)))
-    (unless default
-      (setf default (lambda (obj) (get-name obj))))))
+      (setf old->new (make-hash-table :test 'equal)))))
 
 (defun rename-for-sure (obj renamer)
   (with-slots (db categorize get-name normal default) renamer

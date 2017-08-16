@@ -1,14 +1,40 @@
 # trivial-renamer
 
-Trivial-renamer is a lisp tool for renaming named objects using regular expressions, and maintaining mappings between old and new names.  It may be useful as a component in projects such as file managers, MP3 renamers, and FFI generators.
+Trivial-renamer is a lisp tool for renaming objects using regular expressions, and maintaining mappings between old and new names.  It may be useful as a component in projects such as file managers, MP3 renamers, and FFI generators.
 
-TRIVIAL-RENAMER operates on 'categorized' data.  Think of file type/extionsion, album and song names, or FFI types.  You provide an object, its original name, and a category; TRIVIAL-RENAMER looks up renaming rules for that category, and renames the object (optionally caching the result and checking for one-to-one name correspondence).
+TRIVIAL-RENAMER operates on 'categorized' names.  Some examples of categories (which may be arbitrary lisp objects) are: file types/extionsions, music album or songs, or FFI types. 
 
-Prior to renaming, TRIVIAL-RENAMER requires that you provide it with a set of rules for categories.  These are usually bulk-loaded as a list or rules, although you can add them dynamically.  
+Prior to renaming, TRIVIAL-RENAMER requires that you provide it with rules for categories.  Each category can have one or more rules; each rule is a pair containing a regex and the substitution string.  These are usually bulk-loaded as a list or rules, although you can add them dynamically.  
 
-The renaming process consists of rule-based renaming followed by a call to a 'normal' function you provide.  If no rules can be found, the 'default' renaming function is called.
+The renaming process consists of rule-based renaming followed by a call to a 'normal' function you provide.  If no rules can be found, the 'default' renaming function is called.  If requested, the renamer (a) cache the results, and/or (b) check for 1-1 correspondence by maintaining a reverse cache.
+
+After renaming, the hashtables built are made available to your application.  
 
 Any number of different renamers can be active at the same time.
+
+## Dependencies
+
+Alexandria, cl-ppcre
+
+## Example
+
+The defaults create a renamer that expects string objects.  A simple downcase renaming function is provided to test the functionality.  
+
+```
+(ql:quickload :trivial-renamer)
+(defparameter *test* 
+  (make-instance 'renamer:renamer
+  :default (lambda (str obj renamer) (string-downcase str))
+  
+(renamer:rename "HELLO WORLD" t *test*); category T will default
+"hello world"
+
+(renamer:rule-add *test* 'cat1 '(("e" . "3"))) 
+
+(renamer:rename "monkey" 'cat1 *test*)
+"monk3y"
+```
+
 
 ## Rationale and use case
 
@@ -18,30 +44,6 @@ After renaming, there is still the daunting task of maintaining a relationship b
 
 The required functionality appeared to be well suited for a library.
 
-## Dependencies
-
-Alexandria, cl-ppcre
-
-## Example
-
-The defaults create a renamer that expects string objects.  A simple downcase renaming function is provided to test the functionality.  To demonstrate categorization, we shall use the first 3 characters as a category.  Keep in mind that objects and categories need not be strings!
-
-```
-(ql:quickload :trivial-renamer)
-(defparameter *test* 
-  (make-instance 'renamer:renamer
-  :default (lambda (str obj renamer) (string-downcase str))
-
-  :categorize (lambda (obj) (subseq obj 0 3))
-  
-(renamer:rename "HELLO WORLD" *test*)
-"hello world"
-
-(renamer:rule-add *test* "mon" '(("e" . "3"))) 
-
-(renamer:rename "monkey" *test*)
-"monk3y"
-```
 
 ## Keys to initialize the renamer
 
