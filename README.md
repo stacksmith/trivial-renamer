@@ -1,28 +1,22 @@
 # trivial-renamer
 
-Trivial-renamer is a lisp tool for renaming named objects using regular expressions, and maintaining mappings between old and new names.
+Trivial-renamer is a lisp tool for renaming named objects using regular expressions, and maintaining mappings between old and new names.  It may be useful as a component in projects such as file managers, MP3 renamers, and FFI generators.
 
-In order to accomplish that, TRIVIAL-RENAMER requires that you provide it with three things:
+TRIVIAL-RENAMER operates on 'categorized' data.  Think of file type/extionsion, album and song names, or FFI types.  You provide an object, its original name, and a category; TRIVIAL-RENAMER looks up renaming rules for that category, and renames the object (optionally caching the result and checking for one-to-one name correspondence).
 
-1) A function that returns the object's original name `:get-name (lambda (obj)...)`;
-2) A function that categorizes objects you intend to use `:categorize (lambda (obj)...)`;
-3) A set of renaming rules for each category.  Each category matches to a list of  (regex . replacement-string) pairs.
+Prior to renaming, TRIVIAL-RENAMER requires that you provide it with a set of rules for categories.  These are usually bulk-loaded as a list or rules, although you can add them dynamically.  
 
-In addition, TRIVIAL-RENAMER nees two functions:
-
-1) A function that is called after rule-based renaming takes place `:normal (lambda (newname obj renamer)...)`
-2) A function called if no rule was found `:default (lambda (oldname obj renamer)...)`
-
-Using that information TRIVIAL-RENAMER can apply these rules to objects you provide, renaming them on-the-fly, or caching the result for performance if `:cache T`, and keeping a one-to-one name correspondence if `:one-to-one T`.
+The renaming process consists of rule-based renaming followed by a call to a 'normal' function you provide.  If no rules can be found, the 'default' renaming function is called.
 
 Any number of different renamers can be active at the same time.
-
 
 ## Rationale and use case
 
 The raison d'etre of this library is a cffi binding generator.  Translating C identifier names to Lisp required keeping custom name translation rules based on type of C object, its namespace, and even the object's actual name, for total control of renaming.
 
 After renaming, there is still the daunting task of maintaining a relationship between old and new names, uniqueness of mapping, etc.
+
+The required functionality appeared to be well suited for a library.
 
 ## Dependencies
 
