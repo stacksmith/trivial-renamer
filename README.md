@@ -43,13 +43,13 @@ The defaults create a renamer that expects string objects.  A simple downcase re
 (renamer:rename "HELLO WORLD" *test*)
 "hello world"
 
-(renamer:rule-add (*test* "mon" '(("e" . "3")))) 
+(renamer:rule-add *test* "mon" '(("e" . "3"))) 
 
 (renamer:rename "monkey" *test*)
 "monk3y"
 ```
 
-## Keys to initialze the renamer
+## Keys to initialize the renamer
 
  KEY | DEFAULT | DESCRIPTION
  --- | ------- | -----------
@@ -62,5 +62,29 @@ The defaults create a renamer that expects string objects.  A simple downcase re
 :ONE-TO-ONE | T | if T, enforce one-to-one correspondence of old and new names.
 :CACHE | T | if T, memoize each call to rename, and when matched, return previous result immediately.
 
+
+## Functions
+
+```
+(rule-add renamer category rule)
+
+rule is a list of (regex . newstring) pairs.  Each matched regex is substituted with newstring.
+
+
+(rules-add renamer rules)
+
+Rules is a list in the form of
+'(category ((regex . newstring) (regex .newstring))
+  category ((...))
+  ...)
   
-  
+
+(rename obj renamer)
+
+Returns the new name of obj
+
+
+If cache is enabled, the object to name hashtable is available as renamer:old->new  
+
+Similarly, if 1-1 is enabled, the new name to obj hashtable is renamer:new->old
+

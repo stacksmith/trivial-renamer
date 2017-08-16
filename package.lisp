@@ -3,7 +3,10 @@
 (defpackage #:trivial-renamer
   (:nicknames :renamer)
   (:use #:alexandria #:cl)
-  (:export)
+  (:export
+   :rules-clear :rules-add :rule-add
+   :renamer :rename
+   :old->new :new->old)
   )
 
 
