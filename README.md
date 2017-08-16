@@ -58,8 +58,6 @@ The required functionality appeared to be well suited for a library.
 :VALIDATE | NIL |`(lambda (key value r))` optional function to validate a rule.  If it returns, rule is valid.
 :DEFAULT | lowercase | `:default (lambda (oldname renamer)...)` called if no rule is found, return string.
 :NORMAL | obj copy | `:default (lambda (newname renamer)...)` called after rule is processed, return string.
-:ONE-TO-ONE | T | if T, enforce one-to-one correspondence of old and new names.
-:CACHE | T | if T, memoize each call to rename, and when matched, return previous result immediately.
 :TRANSFORM | * | renaming function; see below
 
 ## Functions
@@ -83,10 +81,7 @@ list | '(category ((regex . newstring) (regex .newstring)) category ((...)) ...)
 
 Returns the new name.
 
-If cache is enabled, the object to name hashtable is available as (old->new renamer)  
-
-Similarly, if 1-1 is enabled, the new name to obj hashtable is (new->old renamer)
-
+Raises errors if the old name is already transformed and new transform mismatches, or if newly generated name is already in use.
 ### (rename:reset &optional renamer)
 
 Clear the renamer data and rules.
