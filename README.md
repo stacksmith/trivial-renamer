@@ -64,7 +64,6 @@ The required functionality appeared to be well suited for a library.
 
 ## Functions
 
-```
 ### (rename:rule category &optional renamer)
 
 rule      a list of (regex . newstring) pairs.  Each matched regex is substituted with newstring.
