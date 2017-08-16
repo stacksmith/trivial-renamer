@@ -66,8 +66,8 @@ The required functionality appeared to be well suited for a library.
 
 ### (rename:rule category &optional renamer)
 
-rule      a list of (regex . newstring) pairs.  Each matched regex is substituted with newstring.
-category  any object that works with 
+ rule | a list of (regex . newstring) pairs.  Each matched regex is substituted with newstring.
+ category | any object that works as a key in the rule hashtable (with :TEST)
 
 
 ### (rename:rules list &optional renamer)
