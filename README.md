@@ -52,7 +52,7 @@ The defaults create a renamer that expects string objects.  A simple downcase re
 ## Keys to initialze the renamer
 
  KEY | DEFAULT | DESCRIPTION
- ---   -------   -----------
+ --- | ------- | -----------
 :OVERWRITE | T | if T, overwrite rules if category is introduced more than once. Otherwise, add new rules in front.
 :VALIDATE | NIL |`(lambda (key value r))` optional function to validate a rule.  If it returns, rule is valid.
 :CATEGORIZE | obj copy | `(lambda (obj))` optional function that returns object's category.  Default: object.
