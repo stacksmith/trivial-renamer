@@ -16,7 +16,7 @@ Any number of different renamers can be active at the same time.
 
 ## Dependencies
 
-Alexandria, cl-ppcre
+cl-ppcre
 
 ## Example
 
