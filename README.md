@@ -76,8 +76,7 @@ The required functionality appeared to be well suited for a library.
 
 Parameter | Description
  --------- | -----------
-list | '(category ((regex . newstring) (regex .newstring)) category ((...))
-  ...)
+list | '(category ((regex . newstring) (regex .newstring)) category ((...)) ...)
   
 
 ### (rename:please oldname &optional renamer)
