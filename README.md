@@ -74,9 +74,9 @@ The required functionality appeared to be well suited for a library.
 
 ### (rename:rules list &optional renamer)
 
-list should contain rules:
-'(category ((regex . newstring) (regex .newstring))
-  category ((...))
+Parameter | Description
+ --------- | -----------
+list | '(category ((regex . newstring) (regex .newstring)) category ((...))
   ...)
   
 
