@@ -6,7 +6,7 @@ TRIVIAL-RENAMER operates on 'categorized' names.  Some examples of categories (w
 
 Prior to renaming, TRIVIAL-RENAMER requires that you provide it with rules for categories.  Each category can have one or more rules; each rule is a pair containing a regex and the substitution string.  These are usually bulk-loaded as a list or rules, although you can add them dynamically.  
 
-The renaming process consists of rule-based renaming followed by a call to a 'normal' function you provide.  If no rules can be found, the 'default' renaming function is called.  If requested, the renamer (a) cache the results, and/or (b) check for 1-1 correspondence by maintaining a reverse cache.
+The renaming process consists of rule-based renaming followed by a call to a 'normal' function you provide.  If no rules can be found, the 'default' renaming function is called.  If requested, the renamer will (a) cache the results, and/or (b) check for 1-1 correspondence by maintaining a reverse cache.
 
 Both the format of the rules and the transformation function are configurable; the default is to perform regex text substitution based on rules that contain `(regex . newstring)`.
 
