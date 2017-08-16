@@ -20,9 +20,9 @@ Any number of different renamers can be active at the same time.
 
 ## Rationale and use case
 
-The raison d'etre of this library is a cffi binding generator.  Translating C identifier names to Lisp required keeping custom name translation rules based on type of C object, its namespace, and even the object's actual name for scalpel-precision renaming.
+The raison d'etre of this library is a cffi binding generator.  Translating C identifier names to Lisp required keeping custom name translation rules based on type of C object, its namespace, and even the object's actual name, for total control of renaming.
 
-Afterwards, I still had to deal with the mess of maintaining a relationship between old and new names, uniqueness of mapping, etc.
+After renaming, there is still the daunting task of maintaining a relationship between old and new names, uniqueness of mapping, etc.
 
 ## Dependencies
 
@@ -55,8 +55,8 @@ The defaults create a renamer that expects string objects.  A simple downcase re
  --- | ------- | -----------
 :OVERWRITE | T | if T, overwrite rules if category is introduced more than once. Otherwise, add new rules in front.
 :VALIDATE | NIL |`(lambda (key value r))` optional function to validate a rule.  If it returns, rule is valid.
-:CATEGORIZE | obj copy | `(lambda (obj))` optional function that returns object's category.  Default: object.
-:GET-NAME | obj copy |  `(lambda (obj))` optional function that returns object's original name.  Default: object.
+:CATEGORIZE | obj copy | `(lambda (obj))` optional function that returns object's category. 
+:GET-NAME | obj copy |  `(lambda (obj))` optional function that returns object's original name. 
 :DEFAULT | obj copy | `:default (lambda (oldname obj renamer)...)` called if no rule is found, return string.
 :NORMAL | obj copy | `:default (lambda (newname obj renamer)...)` called after rule is processed, return string.
 :ONE-TO-ONE | T | if T, enforce one-to-one correspondence of old and new names.
