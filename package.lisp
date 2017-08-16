@@ -2,7 +2,7 @@
 
 (defpackage #:trivial-renamer
   (:nicknames :rename)
-  (:use #:alexandria #:cl)
+  (:use #:cl)
   (:export
    :rules :rule
    :renamer :*default-renamer*

@@ -90,8 +90,12 @@
   (with-slots (new->old old->new db) renamer
     (let ((newname
 	   (if old->new ;;cache on?
-	       (ensure-gethash oldname old->new
-			       (rename-for-sure oldname category renamer))
+	       (multiple-value-bind (existing presentp) ;; ensure-gethash
+		   (gethash oldname old->new)
+		 (if presentp
+		     existing
+		     (setf (gethash oldname old->new)
+			   (rename-for-sure oldname category renamer))))
 	       (rename-for-sure oldname category renamer))))
       ;; if we need a new->old mapping, we should check for uniqueness
       (when new->old
