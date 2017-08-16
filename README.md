@@ -84,7 +84,7 @@ Rules is a list in the form of
 Returns the new name of obj
 
 
-If cache is enabled, the object to name hashtable is available as renamer:old->new  
+If cache is enabled, the object to name hashtable is available as (old->new renamer)  
 
-Similarly, if 1-1 is enabled, the new name to obj hashtable is renamer:new->old
+Similarly, if 1-1 is enabled, the new name to obj hashtable is (new->old renamer)
 
