@@ -7,7 +7,7 @@
    :rules :rule
    :renamer :*default-renamer*
    :please
-   :reset
+   :reset :clear
    :old->new :new->old :default :normal :one-to-one :cache 
    )
   )

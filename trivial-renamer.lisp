@@ -47,16 +47,26 @@
    ;; database of name mappings
    (old->new   :accessor old->new :initform nil)
    (new->old   :accessor new->old :initform nil)))
-;; some useful defaults...
-(defun default-rename-function (string renamer)
-  (declare (ignore renamer))
-  (string-downcase string))
 
 (defmethod initialize-instance :after ((renamer renamer) &key)
   (with-slots (default old->new new->old) renamer
     (setf new->old (make-hash-table :test 'equal))
     (setf old->new (make-hash-table :test 'equal)))
   (setf *default-renamer* renamer))
+
+(defmethod print-object ((object renamer) stream)
+  (print-unreadable-object (object stream :type t)
+    (format stream " with ~A rules, and ~A names"
+	    (hash-table-count (db object))
+	    (hash-table-count (old->new object)))))
+
+;; some useful defaults...
+
+(defun default-rename-function (string renamer)
+  (declare (ignore renamer))
+  (string-downcase string))
+
+
 
 ;;------------------------------------------------------------------------------
 ;; rule application
@@ -100,12 +110,17 @@ reverse proposed-name))
 	    (setf (gethash proposed-name new->old) oldname
 		  (gethash oldname old->new) proposed-name))))))
 
+(defun clear (&optional (renamer *default-renamer*))
+  "clear the caches, leaving rules intact"
+  (with-slots (new->old old->new) renamer
+    (clrhash new->old)
+    (clrhash old->new))
+  renamer)
 
 (defun reset (&optional (renamer *default-renamer*))
   (with-slots (new->old old->new db) renamer
     (rules-clear renamer)
-    (clrhash new->old)
-    (clrhash old->new))
+    (clear renamer))
   renamer)
 
 
