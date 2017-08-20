@@ -8,7 +8,7 @@
    :renamer :*default-renamer*
    :please
    :reset :clear
-   :old->new :new->old :default :normal :one-to-one :cache 
+   :old->new :new->old :default :normal
    )
   )
 
